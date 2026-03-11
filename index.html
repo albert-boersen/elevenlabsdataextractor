@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElevenLabs Data Extractor</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>ElevenLabs <span>Data Extractor</span></h1>
+            <p class="subtitle">Extract conversation transcripts with ease.</p>
+        </header>
+
+        <main>
+            <section class="card privacy-notice">
+                <h3><span class="icon">🔒</span> Privacy & Security</h3>
+                <p>We value your privacy. Your <strong>API Key</strong> is never stored locally or sent to any server
+                    other than ElevenLabs. Data extraction happens entirely on your machine.</p>
+            </section>
+
+            <form id="extractor-form">
+                <div class="input-group">
+                    <label for="api-key">XI API Key</label>
+                    <input type="password" id="api-key" placeholder="Enter your ElevenLabs API Key" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="agent-ids">Agent IDs (comma separated)</label>
+                    <textarea id="agent-ids" rows="3" placeholder="agent_1, agent_2, ..." required></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="input-group">
+                        <label for="start-date">Start Date (Optional)</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div class="input-group">
+                        <label for="end-date">End Date (Optional)</label>
+                        <input type="date" id="end-date">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="output-dir">Output Directory</label>
+                    <div class="file-picker">
+                        <input type="text" id="output-dir" readonly placeholder="Choose where to save results" required>
+                        <button type="button" id="browse-btn" class="secondary-btn">Browse</button>
+                    </div>
+                </div>
+
+                <div class="disclaimer-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="disclaimer-check">
+                        <span class="checkmark"></span>
+                        <span class="label-text">I understand that the developer is not liable for any data loss, API
+                            costs, or misuse of this tool.</span>
+                    </label>
+                </div>
+
+                <button type="submit" id="start-btn" class="primary-btn" disabled>Start Extraction</button>
+            </form>
+
+            <div id="status-container" class="status-container hidden">
+                <div class="progress-info">
+                    <span id="status-text">Ready to start...</span>
+                    <span id="processed-count">0 extracted</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-indicator" class="progress-indicator"></div>
+                </div>
+            </div>
+
+            <div id="result-message" class="result-message hidden"></div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>Developed with ❤️ by <strong>Albert Boursin</strong></p>
+                <a href="https://www.buymeacoffee.com/albertboursin" target="_blank" class="coffee-link">
+                    <span class="icon">☕</span> Buy me a coffee
+                </a>
+            </div>
+            <p class="version-tag"><span class="tag">Alpha v1.1</span></p>
+        </footer>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+
+</html>
