@@ -14,6 +14,23 @@ async function main() {
     }
 
     const agentIds = agentIdsRaw.split(',').map(id => id.trim());
+
+    // Date filtering
+    const startDateRaw = process.env.START_DATE;
+    const endDateRaw = process.env.END_DATE;
+
+    const toUnix = (dateStr) => {
+        if (!dateStr) return null;
+        const ms = Date.parse(dateStr);
+        return isNaN(ms) ? null : Math.floor(ms / 1000);
+    };
+
+    const startAfter = toUnix(startDateRaw);
+    const startBefore = toUnix(endDateRaw);
+
+    if (startAfter) console.log(`Filter: Starting after ${new Date(startAfter * 1000).toISOString()}`);
+    if (startBefore) console.log(`Filter: Starting before ${new Date(startBefore * 1000).toISOString()}`);
+
     const client = new ElevenLabsClient(apiKey);
     let allConversations = [];
 
@@ -28,7 +45,7 @@ async function main() {
 
             while (hasMore) {
                 console.log(`Fetching conversations for ${agentId}... ${cursor ? '(next page)' : ''}`);
-                const data = await client.getConversations(agentId, cursor);
+                const data = await client.getConversations(agentId, cursor, startAfter, startBefore);
 
                 if (data.conversations && data.conversations.length > 0) {
                     for (const conv of data.conversations) {
